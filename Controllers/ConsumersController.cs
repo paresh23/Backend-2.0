@@ -25,6 +25,10 @@ namespace ngToASP.Controllers
         public IActionResult Create(Consumer l)
         {
             pgc.Consumers.Add(l);
+            LoginTable lt = new LoginTable();
+            lt.UserName = l.UserName;
+            lt.UPassword = l.CPassword;
+            pgc.LoginTables.Add(lt);
             pgc.SaveChanges();
             return Ok(l);
         }
