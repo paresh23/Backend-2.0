@@ -5,7 +5,8 @@ USE ProjectGladiator
 DROP TABLE EMICard
 DROP TABLE Product
 DROP TABLE PurchaseRecord
-DROP TABLE AdminControl*/
+DROP TABLE AdminControl
+DROP TABLE LoginTable*/
 
 CREATE TABLE Consumer(
 	cid int IDENTITY(10000,1) PRIMARY KEY,
@@ -15,15 +16,14 @@ CREATE TABLE Consumer(
 	emailId varchar(50) UNIQUE NOT NULL,
 	phoneNumber varchar(10) NOT NULL,
 	userName varchar(20) UNIQUE NOT NULL,
-	cAddress varchar(50) NOT NULL,
-	cPassword varchar(20) UNIQUE NOT NULL,
-	cardType bit NOT NULL,
+	cAddress varchar(100) NOT NULL,
+	cPassword varchar(20) NOT NULL,
+	cardType varchar(15) NOT NULL,
 	bankName varchar(20) NOT NULL,
 	accNo varchar(30) UNIQUE NOT NULL,
 	ifscCode varchar(30) NOT NULL,
 	isVerfied bit DEFAULT 0
 )
-alter table consumer alter column cardType varchar(15)
 
 
 CREATE TABLE EMICard(
@@ -40,7 +40,7 @@ CREATE TABLE Product(
 	pid int IDENTITY(30000,1) PRIMARY KEY,
 	productId AS 'PRN' + RIGHT(CAST(pid AS VARCHAR(8)), 8) UNIQUE,
 	productName varchar(30) NOT NULL,
-	prodDetails varchar(100),
+	prodDetails varchar(500),
 	price decimal NOT NULL,
 	img varchar(100) NOT NULL
 )
@@ -65,7 +65,7 @@ CREATE TABLE AdminControl(
 	userId AS 'AID' + RIGHT(CAST(aid AS VARCHAR(8)), 8) UNIQUE,
 	aName varchar(50) NOT NULL,
 	userName varchar(20) UNIQUE NOT NULL,
-	aPassword varchar(20) UNIQUE NOT NULL,
+	aPassword varchar(20) NOT NULL,
 )
 
 CREATE TABLE LoginTable(
