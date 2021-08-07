@@ -32,5 +32,44 @@ namespace ngToASP.Controllers
             pgc.SaveChanges();
             return Ok(l);
         }
+        //[HttpPut]
+        //public IActionResult Edit(Consumer l)
+        //{
+        //    pgc.Consumers.Update(l);
+        //    pgc.SaveChanges();
+        //    return Ok(l);
+        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutConsumers(int id, Consumer consumer)
+        {
+            if (id != consumer.Cid)
+            {
+                return BadRequest();
+            }
+
+            pgc.Entry(consumer).State = EntityState.Modified;
+
+            try
+            {
+                await pgc.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ConsumerExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+        private bool ConsumerExists(int id)
+        {
+            return pgc.Consumers.Any(e => e.Cid == id);
+        }
     }
 }
