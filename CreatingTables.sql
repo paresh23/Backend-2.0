@@ -8,6 +8,9 @@ DROP TABLE PurchaseRecord
 DROP TABLE AdminControl
 DROP TABLE LoginTable*/
 
+DELETE FROM Consumer
+DELETE FROM LoginTable
+
 CREATE TABLE Consumer(
 	cid int IDENTITY(10000,1) PRIMARY KEY,
 	userId AS 'UID' + RIGHT(CAST(cid AS VARCHAR(8)), 8) UNIQUE,
@@ -25,6 +28,7 @@ CREATE TABLE Consumer(
 	isVerfied bit DEFAULT 0
 )
 
+ALTER TABLE Consumer ADD CONSTRAINT U_phoneNo UNIQUE (phoneNumber);  --RUN THIS!!!!
 
 CREATE TABLE EMICard(
 	eid int IDENTITY(20000,1) PRIMARY KEY,
@@ -74,3 +78,5 @@ CREATE TABLE LoginTable(
 )
 
 select * from Consumer
+select * from LoginTable
+
