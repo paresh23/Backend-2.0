@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ngToASP", "ngToASP.csproj", "{D469CAFB-A2F9-484F-AB47-59F7A19C193B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D469CAFB-A2F9-484F-AB47-59F7A19C193B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D469CAFB-A2F9-484F-AB47-59F7A19C193B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D469CAFB-A2F9-484F-AB47-59F7A19C193B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D469CAFB-A2F9-484F-AB47-59F7A19C193B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33D4C96D-E0BF-4BDD-A193-D0E0755E238D}
+	EndGlobalSection
+EndGlobal
