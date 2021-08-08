@@ -80,6 +80,7 @@ CREATE TABLE PurchaseRecord(
 	CONSTRAINT fk_uid FOREIGN KEY (userId) REFERENCES Consumer(cid)
 )
 
+select * from PurchaseRecord
 
 CREATE TABLE AdminControl(
 	aid int IDENTITY(50000,1) PRIMARY KEY,
