@@ -10,6 +10,7 @@ using ngToASP.FinanceModel;
 namespace ngToASP.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ConsumersController : ControllerBase
     {
@@ -40,7 +41,7 @@ namespace ngToASP.Controllers
         //    return Ok(l);
         //}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutConsumers(int id, Consumer consumer)
+        public IActionResult Update(int id, [FromBody] Consumer consumer)
         {
             if (id != consumer.Cid)
             {
@@ -51,7 +52,7 @@ namespace ngToASP.Controllers
 
             try
             {
-                await pgc.SaveChangesAsync();
+                pgc.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {

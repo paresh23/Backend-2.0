@@ -103,5 +103,25 @@ namespace ngToASP.Controllers
         {
             return _context.PurchaseRecords.Any(e => e.Prid == id);
         }
+
+        //[HttpGet]
+        //public IQueryable<Object> GetProduct(ProjectGladiatorContext context)
+        //{
+
+        //    return from pr in context.PurchaseRecords
+        //           join product in context.Products on pr.ProductId equals product.Pid
+        //           select new
+        //           {
+        //               productName = product.ProductName,
+        //               productPrice = product.Price,
+        //               prId = pr.Prid
+        //           };
+
+        //}
+        //public async Task<IHttpActionResult> GetProduct()
+        //{
+        //    return Ok(await db.MyModel.ToArrayAsync());
+        //}
     }
+
 }
