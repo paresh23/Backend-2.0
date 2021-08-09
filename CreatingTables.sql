@@ -8,8 +8,8 @@ DROP TABLE PurchaseRecord
 DROP TABLE AdminControl
 DROP TABLE LoginTable*/
 
-DELETE FROM Consumer
-DELETE FROM LoginTable
+/*DELETE FROM Consumer
+DELETE FROM LoginTable*/
 
 CREATE TABLE Consumer(
 	cid int IDENTITY(10000,1) PRIMARY KEY,
@@ -80,7 +80,13 @@ CREATE TABLE PurchaseRecord(
 	CONSTRAINT fk_uid FOREIGN KEY (userId) REFERENCES Consumer(cid)
 )
 
+/*CREATE INDEX SortedDOP ON PurchaseRecord(DOP)
+DROP INDEX [PK__Purchase__46638AEDD3CBAD26] ON PurchaseRecord
+DROP INDEX SortedDOP ON PurchaseRecord
+ALTER TABLE PurchaseRecord ADD CONSTRAINT pk_prid PRIMARY KEY (prid)*/
+
 select * from PurchaseRecord
+--UPDATE PurchaseRecord SET totalMonthsSelected=2 where prid=40000;
 
 CREATE TABLE AdminControl(
 	aid int IDENTITY(50000,1) PRIMARY KEY,
