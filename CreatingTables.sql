@@ -74,10 +74,14 @@ CREATE TABLE PurchaseRecord(
 	DOP date NOT NULL,
 	productBalance decimal,
 	totalMonthsSelected int,
+	LatestEMImonth int,
 	CONSTRAINT fk_cdn FOREIGN KEY (cardNo) REFERENCES EMICard(eid),
 	CONSTRAINT fk_pid FOREIGN KEY (productId) REFERENCES Product(pid),
 	CONSTRAINT fk_uid FOREIGN KEY (userId) REFERENCES Consumer(cid)
 )
+
+--ALTER TABLE PurchaseRecord ADD LatestEMImonth int; --DONT RUN THIS!!
+--UPDATE PurchaseRecord SET LatestEMImonth = 7 where cardNo = 21010
 
 /*CREATE INDEX SortedDOP ON PurchaseRecord(DOP)
 DROP INDEX [PK__Purchase__46638AEDD3CBAD26] ON PurchaseRecord
