@@ -29,7 +29,7 @@ namespace ngToASP.FinanceModel
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-36GD6ROB;Database=ProjectGladiator;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=ProjectGladiator;Trusted_Connection=True;");
             }
         }
 
@@ -278,11 +278,11 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<PurchaseRecord>(entity =>
             {
                 entity.HasKey(e => e.Prid)
-                    .HasName("PK__Purchase__46638AEDD3CBAD26");
+                    .HasName("PK__Purchase__46638AED3DB2D04A");
 
                 entity.ToTable("PurchaseRecord");
 
-                entity.HasIndex(e => e.OrderId, "UQ__Purchase__0809335C1A260AB2")
+                entity.HasIndex(e => e.OrderId, "UQ__Purchase__0809335CA31DFAE8")
                     .IsUnique();
 
                 entity.Property(e => e.Prid).HasColumnName("prid");
@@ -292,6 +292,8 @@ namespace ngToASP.FinanceModel
                 entity.Property(e => e.Dop)
                     .HasColumnType("date")
                     .HasColumnName("DOP");
+
+                entity.Property(e => e.LatestEmimonth).HasColumnName("LatestEMImonth");
 
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(11)
