@@ -15,6 +15,7 @@ namespace ngToASP.FinanceModel
         public DateTime Dop { get; set; }
         public decimal? ProductBalance { get; set; }
         public int? TotalMonthsSelected { get; set; }
+        public int? LatestEmimonth { get; set; }
 
         public virtual Emicard CardNoNavigation { get; set; }
         public virtual Product Product { get; set; }
