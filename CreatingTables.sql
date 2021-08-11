@@ -42,7 +42,6 @@ CREATE TABLE EMICard(
 
 INSERT INTO EMICard VALUES (10002, (convert(date,'18-06-22', 5)), 100000.0, 100000.00)
 
-select * from EMICard
 
 CREATE TABLE Product(
 	pid int IDENTITY(30000,1) PRIMARY KEY,
@@ -64,7 +63,7 @@ insert into Product(productName,prodDetails,price,img) values('Echo Dot (4th Gen
 insert into Product(productName,prodDetails,price,img) values('OnePlus 9','The smartphone is powered by Qualcomm SM8350 Snapdragon 888 Octa-core and it comes with 6.55 inches Fluid AMOLED screen. The resolution of the screen is 1080 x 2400 pixels while it is protected by Corning Gorilla Glass.The device is pack with 8 GB and 12 GB RAM while the internal storage is 128 GB and 512 GB.',49990,'assets/images/9.jpg')
 insert into Product(productName,prodDetails,price,img) values('Amazon Kindle','Purpose-built for reading with a 167 ppi glare-free display that reads like real paper, even in direct sunlight. Adjustable brightness lets you read comfortably—indoors and outdoors, day and night. Unlike a tablet, a single battery charge lasts weeks, not hours. 8GB of storage means thousands of titles on hand all in a compact size',6790,'assets/images/10.jpg')
 
-select * from Product
+
 
 CREATE TABLE PurchaseRecord(
 	prid int IDENTITY(40000,1) PRIMARY KEY,
@@ -85,7 +84,7 @@ DROP INDEX [PK__Purchase__46638AEDD3CBAD26] ON PurchaseRecord
 DROP INDEX SortedDOP ON PurchaseRecord
 ALTER TABLE PurchaseRecord ADD CONSTRAINT pk_prid PRIMARY KEY (prid)*/
 
-select * from PurchaseRecord
+
 --UPDATE PurchaseRecord SET totalMonthsSelected=2 where prid=40000;
 
 CREATE TABLE AdminControl(
@@ -103,5 +102,16 @@ CREATE TABLE LoginTable(
 
 select * from Consumer
 select * from LoginTable
+select * from Product
+select * from EMICard
+select * from PurchaseRecord
 
+/*DELETE FROM EMICard
+DELETE FROM PurchaseRecord*/
+
+/* 
+1. Admin Table
+2. Login Table (admin Table ka data)
+3. Product table -> manually inserted
+*/
 
