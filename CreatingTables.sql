@@ -66,7 +66,7 @@ insert into Product(productName,prodDetails,price,img) values('Amazon Kindle','P
 
 
 CREATE TABLE PurchaseRecord(
-	prid int IDENTITY(40000,1) PRIMARY KEY,
+	prid int IDENTITY(40000,1), --step 2 remove this pk constraint while creating the table 
 	orderId AS 'ODR' + RIGHT(CAST(prid AS VARCHAR(8)), 8) UNIQUE,
 	cardNo int,
 	productId int,
@@ -83,10 +83,12 @@ CREATE TABLE PurchaseRecord(
 --ALTER TABLE PurchaseRecord ADD LatestEMImonth int; --DONT RUN THIS!!
 --UPDATE PurchaseRecord SET LatestEMImonth = 7 where cardNo = 21010
 
-/*CREATE INDEX SortedDOP ON PurchaseRecord(DOP)
-DROP INDEX [PK__Purchase__46638AEDD3CBAD26] ON PurchaseRecord
+/*CREATE INDEX SortedDOP ON PurchaseRecord(DOP)  -- step3
+DROP TABLE PurchaseRecord //step1 
+//no need DROP INDEX [PK__Purchase__46638AED3DB2D04A] ON PurchaseRecord
 DROP INDEX SortedDOP ON PurchaseRecord
-ALTER TABLE PurchaseRecord ADD CONSTRAINT pk_prid PRIMARY KEY (prid)*/
+// no need ALTER TABLE PurchaseRecord DROP CONSTRAINT pk_prid PRIMARY KEY (prid)
+ALTER TABLE PurchaseRecord ADD CONSTRAINT pk_prid PRIMARY KEY (prid)*/  --step 4
 
 
 --UPDATE PurchaseRecord SET totalMonthsSelected=2 where prid=40000;
@@ -104,6 +106,8 @@ CREATE TABLE LoginTable(
 	uPassword varchar(20) NOT NULL
 )
 
+INSERT INTO LoginTable VALUES ('admin1','admin1')
+
 select * from Consumer
 select * from LoginTable
 select * from Product
@@ -111,7 +115,9 @@ select * from EMICard
 select * from PurchaseRecord
 
 /*DELETE FROM EMICard
-DELETE FROM PurchaseRecord*/
+DELETE FROM PurchaseRecord
+DELETE FROM LoginTable
+DELETE FROM Consumer*/
 
 /* 
 1. Admin Table

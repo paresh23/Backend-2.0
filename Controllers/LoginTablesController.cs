@@ -64,5 +64,20 @@ namespace ngToASP.Controllers
         {
             return pgc.LoginTables.Any(e => e.UserName == id);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLoginTable(string id)
+        {
+            var loginTable = await pgc.LoginTables.FindAsync(id);
+            if (loginTable == null)
+            {
+                return NotFound();
+            }
+
+            pgc.LoginTables.Remove(loginTable);
+            await pgc.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
