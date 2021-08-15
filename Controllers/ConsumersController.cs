@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ngToASP.FinanceModel;
+using ngToASP.Controllers;
+using ngToASP.Model;
+using ngToASP.Services;
 
 namespace ngToASP.Controllers
 {
@@ -14,7 +17,13 @@ namespace ngToASP.Controllers
     [ApiController]
     public class ConsumersController : ControllerBase
     {
+        private readonly IMailService _mailService;
         ProjectGladiatorContext pgc = new ProjectGladiatorContext();
+
+        public ConsumersController(IMailService mailService)
+        {
+            _mailService = mailService;
+        }
 
         [HttpGet]
         public IActionResult Index()
@@ -33,16 +42,14 @@ namespace ngToASP.Controllers
             pgc.SaveChanges();
             return Ok(l);
         }
-        //[HttpPut]
-        //public IActionResult Edit(Consumer l)
-        //{
-        //    pgc.Consumers.Update(l);
-        //    pgc.SaveChanges();
-        //    return Ok(l);
-        //}
+
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Consumer consumer)
+        public async Task<IActionResult> Update(int id, [FromBody] Consumer consumer)
         {
+            MailRequest request=new MailRequest();
+            request.Body = "Card Activated";
+            request.ToEmail = consumer.EmailId;
+            request.Subject = "Activation";
             if (id != consumer.Cid)
             {
                 return BadRequest();
@@ -52,7 +59,8 @@ namespace ngToASP.Controllers
 
             try
             {
-                pgc.SaveChanges();
+                await _mailService.SendEmailAsync(request);
+                await pgc.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

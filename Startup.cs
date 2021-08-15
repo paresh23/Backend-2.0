@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ngToASP.FinanceModel;
+using ngToASP.Services;
+using ngToASP.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,8 @@ namespace ngToASP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
             services.AddDbContext<ProjectGladiatorContext>(options =>
        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -37,7 +41,9 @@ namespace ngToASP
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ngToASP", Version = "v1" });
             });
 
-            services.AddCors();
+            services.AddCors(c=> {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
