@@ -72,5 +72,21 @@ namespace ngToASP.Controllers
         {
             return pgc.Consumers.Any(e => e.Cid == id);
         }
+
+        // DELETE: api/Consumers/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteConsumer(int id)
+        {
+            var consumer = await pgc.Consumers.FindAsync(id);
+            if (consumer == null)
+            {
+                return NotFound();
+            }
+
+            pgc.Consumers.Remove(consumer);
+            await pgc.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
