@@ -19,6 +19,8 @@ namespace ngToASP.FinanceModel
 
         public virtual DbSet<AdminControl> AdminControls { get; set; }
         public virtual DbSet<Consumer> Consumers { get; set; }
+        public virtual DbSet<Dbimg> Dbimgs { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Emicard> Emicards { get; set; }
         public virtual DbSet<LoginTable> LoginTables { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -40,14 +42,14 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<AdminControl>(entity =>
             {
                 entity.HasKey(e => e.Aid)
-                    .HasName("PK__AdminCon__DE508E2E65C63F41");
+                    .HasName("PK__AdminCon__DE508E2EA36B10BB");
 
                 entity.ToTable("AdminControl");
 
-                entity.HasIndex(e => e.UserName, "UQ__AdminCon__66DCF95CCF99C52D")
+                entity.HasIndex(e => e.UserName, "UQ__AdminCon__66DCF95CBFC4887E")
                     .IsUnique();
 
-                entity.HasIndex(e => e.UserId, "UQ__AdminCon__CB9A1CFEB559E7A3")
+                entity.HasIndex(e => e.UserId, "UQ__AdminCon__CB9A1CFE4AAAB12F")
                     .IsUnique();
 
                 entity.Property(e => e.Aid).HasColumnName("aid");
@@ -80,20 +82,20 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<Consumer>(entity =>
             {
                 entity.HasKey(e => e.Cid)
-                    .HasName("PK__Consumer__D837D05F53865702");
+                    .HasName("PK__Consumer__D837D05FDF4B48F3");
 
                 entity.ToTable("Consumer");
 
-                entity.HasIndex(e => e.UserName, "UQ__Consumer__66DCF95C079663A5")
+                entity.HasIndex(e => e.UserName, "UQ__Consumer__66DCF95CD40E8F33")
                     .IsUnique();
 
-                entity.HasIndex(e => e.EmailId, "UQ__Consumer__87355E738BEE6184")
+                entity.HasIndex(e => e.EmailId, "UQ__Consumer__87355E73E6A565FC")
                     .IsUnique();
 
-                entity.HasIndex(e => e.AccNo, "UQ__Consumer__A47197041AB156B2")
+                entity.HasIndex(e => e.AccNo, "UQ__Consumer__A47197047A2C51A3")
                     .IsUnique();
 
-                entity.HasIndex(e => e.UserId, "UQ__Consumer__CB9A1CFE51F20742")
+                entity.HasIndex(e => e.UserId, "UQ__Consumer__CB9A1CFE7C9F171C")
                     .IsUnique();
 
                 entity.HasIndex(e => e.PhoneNumber, "U_phoneNo")
@@ -176,14 +178,45 @@ namespace ngToASP.FinanceModel
                     .HasColumnName("userName");
             });
 
+            modelBuilder.Entity<Dbimg>(entity =>
+            {
+                entity.HasKey(e => e.Iid)
+                    .HasName("PK__dbimg__DC5021AA89C0C3D9");
+
+                entity.ToTable("dbimg");
+
+                entity.Property(e => e.Iid).HasColumnName("iid");
+
+                entity.Property(e => e.ImageFile).IsUnicode(false);
+
+                entity.Property(e => e.ImageName)
+                    .IsRequired()
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Document>(entity =>
+            {
+                entity.ToTable("Document");
+
+                entity.Property(e => e.DocumentId).HasColumnName("documentId");
+
+                entity.Property(e => e.DocImage).HasColumnName("docImage");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("username");
+            });
+
             modelBuilder.Entity<Emicard>(entity =>
             {
                 entity.HasKey(e => e.Eid)
-                    .HasName("PK__EMICard__D9509F6D755648D3");
+                    .HasName("PK__EMICard__D9509F6D28957928");
 
                 entity.ToTable("EMICard");
 
-                entity.HasIndex(e => e.CardNo, "UQ__EMICard__4D66913AF467DDD2")
+                entity.HasIndex(e => e.CardNo, "UQ__EMICard__4D66913A71893E56")
                     .IsUnique();
 
                 entity.Property(e => e.Eid).HasColumnName("eid");
@@ -219,7 +252,7 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<LoginTable>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__LoginTab__66DCF95D5CAC6CBB");
+                    .HasName("PK__LoginTab__66DCF95D31E81D44");
 
                 entity.ToTable("LoginTable");
 
@@ -238,11 +271,11 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Pid)
-                    .HasName("PK__Product__DD37D91AC84D0343");
+                    .HasName("PK__Product__DD37D91A0BA2DBF3");
 
                 entity.ToTable("Product");
 
-                entity.HasIndex(e => e.ProductId, "UQ__Product__2D10D16B9376BE7F")
+                entity.HasIndex(e => e.ProductId, "UQ__Product__2D10D16B8C8BDB07")
                     .IsUnique();
 
                 entity.Property(e => e.Pid).HasColumnName("pid");
@@ -278,11 +311,11 @@ namespace ngToASP.FinanceModel
             modelBuilder.Entity<PurchaseRecord>(entity =>
             {
                 entity.HasKey(e => e.Prid)
-                    .HasName("PK__Purchase__46638AED3DB2D04A");
+                    .HasName("PK__Purchase__46638AED17FA8F56");
 
                 entity.ToTable("PurchaseRecord");
 
-                entity.HasIndex(e => e.OrderId, "UQ__Purchase__0809335CA31DFAE8")
+                entity.HasIndex(e => e.OrderId, "UQ__Purchase__0809335C6E1C155A")
                     .IsUnique();
 
                 entity.Property(e => e.Prid).HasColumnName("prid");

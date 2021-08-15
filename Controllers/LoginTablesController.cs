@@ -28,5 +28,6 @@ namespace ngToASP.Controllers
             pgc.SaveChanges();
             return Ok(l);
         }
+
     }
 }
