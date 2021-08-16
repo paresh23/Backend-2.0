@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ngToASP.FinanceModel;
+using ngToASP.Controllers;
+using ngToASP.Model;
+using ngToASP.Services;
 
 namespace ngToASP.Controllers
 {
@@ -14,12 +17,61 @@ namespace ngToASP.Controllers
     [ApiController]
     public class ConsumersController : ControllerBase
     {
+        //private readonly IMailService _mailService;
+        //ProjectGladiatorContext pgc = new ProjectGladiatorContext();
+
+        //public ConsumersController(IMailService mailService)
+        //{
+        //    _mailService = mailService;
+        //}
+
+        private readonly ProjectGladiatorContext _context;
+        private readonly IMailService _mailService;
         ProjectGladiatorContext pgc = new ProjectGladiatorContext();
+        public ConsumersController(IMailService mailService, ProjectGladiatorContext context)
+        {
+            _context = context;
+            _mailService = mailService;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
             return Ok(pgc.Consumers.ToList());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Consumer>> GetConsumerControl(int id)
+        {
+            //int num = 1001;
+            //int num = RandomNumber(1000,9999);
+            Random r = new Random();
+            int num = r.Next(1000, 9999);
+            var consumerControl = await _context.Consumers.FindAsync(id);
+            if (consumerControl == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    MailRequest request = new MailRequest();
+                    string otp = num.ToString();
+                    request.Body = "OTP for Password Change is " + otp;
+                    request.ToEmail = consumerControl.EmailId;
+                    request.Subject = "OTP for Password Change";
+                    await _mailService.SendEmailAsync(request);
+                    //await pgc.SaveChangesAsync();
+                    consumerControl.PhoneNumber = otp;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                
+            }
+            return consumerControl;
         }
 
         [HttpPost]
@@ -33,16 +85,49 @@ namespace ngToASP.Controllers
             pgc.SaveChanges();
             return Ok(l);
         }
-        //[HttpPut]
-        //public IActionResult Edit(Consumer l)
+
+        //[HttpPut("{uid}")]
+        //[Route("api/[controller]/UpdatePassword")]
+        //public async Task<IActionResult> UpdatePassword(int uid, [FromBody] Consumer consumer)
         //{
-        //    pgc.Consumers.Update(l);
-        //    pgc.SaveChanges();
-        //    return Ok(l);
+        //    //MailRequest request = new MailRequest();
+        //    //request.Body = "Card Activated";
+        //    //request.ToEmail = consumer.EmailId;
+        //    //request.Subject = "Activation";
+        //    if (uid != consumer.Cid)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    pgc.Entry(consumer).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        //await _mailService.SendEmailAsync(request);
+        //        await pgc.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ConsumerExists(uid))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
         //}
+
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Consumer consumer)
+        public async Task<IActionResult> UpdateVerify(int id, [FromBody] Consumer consumer)
         {
+            MailRequest request=new MailRequest();
+            request.Body = "Card Activated";
+            request.ToEmail = consumer.EmailId;
+            request.Subject = "Activation";
             if (id != consumer.Cid)
             {
                 return BadRequest();
@@ -52,7 +137,8 @@ namespace ngToASP.Controllers
 
             try
             {
-                pgc.SaveChanges();
+                await _mailService.SendEmailAsync(request);
+                await pgc.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

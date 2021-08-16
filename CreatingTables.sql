@@ -108,11 +108,21 @@ CREATE TABLE LoginTable(
 
 INSERT INTO LoginTable VALUES ('admin1','admin1')
 
+CREATE TABLE dbimg(
+	iid int IDENTITY(1,1) PRIMARY KEY,
+	[ImageName] [varchar](40) NOT NULL,
+	[ImageFile] varchar(MAX) NOT NULL
+)
+ 
+/*ALTER TABLE dbimg
+ALTER COLUMN ImageFile varchar(MAX);*/
+
 select * from Consumer
 select * from LoginTable
 select * from Product
 select * from EMICard
 select * from PurchaseRecord
+select * from dbimg
 
 /*DELETE FROM EMICard
 DELETE FROM PurchaseRecord
