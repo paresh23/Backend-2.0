@@ -201,7 +201,9 @@ namespace ngToASP.FinanceModel
 
                 entity.Property(e => e.DocumentId).HasColumnName("documentId");
 
-                entity.Property(e => e.DocImage).HasColumnName("docImage");
+                entity.Property(e => e.DocImage)
+                    .IsUnicode(false)
+                    .HasColumnName("docImage");
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(50)

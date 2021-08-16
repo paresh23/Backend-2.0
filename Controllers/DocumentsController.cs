@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace ngToASP.Controllers
 {
@@ -114,19 +115,27 @@ namespace ngToASP.Controllers
         public IActionResult UploadImage(IFormFile file)
         {
 
-            if (file.Length > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                using (FileStream stream = new FileStream(Path.Combine("Image", fileName), FileMode.Create))
+            if (file != null ){ 
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-                    file.CopyTo(stream);
-                Document doc = new Document();
-                doc.Username = fileName;
+            var fileName = Path.GetFileName(file.FileName);
+            FileStream stream = new FileStream(Path.Combine("C:/Users/Darshil Shah/Documents/GitHub/FinanceProject/src/assets/images", fileName), FileMode.Create);
+            //var fullPath = Path.Combine(pathToSave, fileName);
+            var dbPath = Path.Combine("assets/images", fileName);
 
-                _context.Documents.Add(doc);
-                _context.SaveChanges();
+            //var stream = new FileStream("F:/PG", FileMode.Create);
 
-            }
+            file.CopyTo(stream);
+
+            Document doc = new Document();
+            doc.Username = fileName;
+            doc.DocImage = dbPath;
+
+            _context.Documents.Add(doc);
+            _context.SaveChanges();
+
+        }
             return Ok();
         }
     }

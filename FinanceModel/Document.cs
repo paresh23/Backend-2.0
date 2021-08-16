@@ -9,6 +9,6 @@ namespace ngToASP.FinanceModel
     {
         public int DocumentId { get; set; }
         public string Username { get; set; }
-        public byte[] DocImage { get; set; }
+        public string DocImage { get; set; }
     }
 }
